@@ -4,16 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Math Lab</title>
+    <style>
+        /* --- Basic Reset & Body Styling --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5; /* A light grey background */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* --- Header Styling --- */
+        header h1 {
+            font-size: 2.5rem;
+            color: #1c1e21;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #606770;
+            margin-bottom: 40px;
+        }
+
+        /* --- Navigation Menu Styling --- */
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between buttons */
+        }
+
+        /* --- Button Styling --- */
+        .menu-button {
+            display: block;
+            background-color: #007bff; /* A nice blue */
+            color: white;
+            padding: 20px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+        }
+
+        /* --- Button Hover Effect --- */
+        .menu-button:hover {
+            background-color: #0056b3; /* A darker blue on hover */
+            transform: translateY(-3px); /* Slight lift effect */
+        }
+
+        /* --- Responsive Design for smaller screens --- */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 25px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .menu-button {
+                padding: 18px 25px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
-    <script src="sketch3.js"></script>
-</body>
-<body>
-    <div>
-      <label for="nSlider">Number of Rectangles (N): </label>
-      <input id="nSlider" type="range" min="1" max="200" value="20">
-      <span id="nValueDisplay">20</span>
+
+    <div class="container">
+        <header>
+            <h1>Interactive Math Lab</h1>
+            <p>Select a visualizer to begin</p>
+        </header>
+        <nav class="menu">
+            <!-- Button linking to the Unit Circle visualizer -->
+            <a href="./unit-circle/index.html" class="menu-button">Unit Circle</a>
+            
+            <!-- Button linking to the Slope Explorer visualizer -->
+            <a href="./slope-explorer/index.html" class="menu-button">Slope Explorer</a>
+            
+            <!-- Button linking to the Area Painter visualizer -->
+            <a href="./area-painter/index.html" class="menu-button">Area Painter</a>
+        </nav>
     </div>
-  </body>
+
+</body>
 </html>
