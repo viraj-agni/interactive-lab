@@ -5,8 +5,18 @@ let amplitude = 75; // How tall the wave is
 let waveWidth = 500; // How long the wave is on screen
 
 function setup() {
-  // Creates a canvas with a width of 600 pixels and a height of 400 pixels.
-  createCanvas(windowWidth, windowHeight);
+  // Find the canvas container div
+  let canvasContainer = document.getElementById('canvas-container');
+
+  // Get its width and height
+  let canvasWidth = canvasContainer.offsetWidth;
+  let canvasHeight = canvasContainer.offsetHeight;
+
+  // Create the canvas with those dimensions
+  let canvas = createCanvas(canvasWidth, canvasHeight);
+
+  // Tell the canvas to live inside the container
+  canvas.parent('canvas-container'); 
 }
 
 function draw() {
@@ -74,7 +84,15 @@ if (mouseIsPressed) {
   text("Cos: " + cosValue.toFixed(2), -width/2 + 40, -height/2 + 120);
 }
 
+
 function windowResized() {
-  // Resize the canvas to the new window dimensions
-  resizeCanvas(windowWidth, windowHeight);
+  // Find the canvas container div again
+  let canvasContainer = document.getElementById('canvas-container');
+
+  // Get its new width and height
+  let canvasWidth = canvasContainer.offsetWidth;
+  let canvasHeight = canvasContainer.offsetHeight;
+
+  // Resize the canvas to match the container
+  resizeCanvas(canvasWidth, canvasHeight);
 }
