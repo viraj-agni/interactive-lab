@@ -5,21 +5,26 @@ let amplitude = 75; // How tall the wave is
 let waveWidth = 500; // How long the wave is on screen
 
 function setup() {
-  // Find the canvas container div
-  let canvasContainer = document.getElementById('canvas-container');
+  // A more robust fix for the race condition.
+  setTimeout(() => {
+    // Find the canvas container div
+    let canvasContainer = document.getElementById('canvas-container');
 
-  // Get its width and height
-  let canvasWidth = canvasContainer.offsetWidth;
-  let canvasHeight = canvasContainer.offsetHeight;
+    // Create a placeholder canvas and parent it to the container.
+    // Its size doesn't matter as it will be immediately resized.
+    let canvas = createCanvas(100, 100);
+    canvas.parent('canvas-container');
 
-  // Create the canvas with those dimensions
-  let canvas = createCanvas(canvasWidth, canvasHeight);
-
-  // Tell the canvas to live inside the container
-  canvas.parent('canvas-container'); 
+    // Now, trigger the windowResized function to correctly size the canvas
+    // after the browser has finished its initial layout rendering.
+    windowResized();
+  }, 0); // A 0ms timeout defers execution until the browser is ready.
 }
 
 function draw() {
+  // Guard against drawing before the canvas is created
+  if (!window.canvas) return;
+  
   background(220);
 
   // 1. Move the origin to the center
@@ -30,14 +35,14 @@ function draw() {
   let relativeMouseY = mouseY - height / 2;
   let distance = dist(0, 0, relativeMouseX, relativeMouseY);
 
-  // 3. Calculate the angle using atan2 along with its sin and cos 
+  // 3. Calculate the angle using atan2 along with its sin and cos
   let angle = atan2(-relativeMouseY, relativeMouseX);// Note: Invert Y to match the cartesian coordinate system
   let sinValue = sin(angle);
   let cosValue = cos(angle);
   let radius = height/3
 
   // --- Visualization ---
-  
+
   // Draw the axes for context
   stroke(150);
   strokeWeight(1);
@@ -50,7 +55,7 @@ function draw() {
   circle(0, 0, 2 * radius); // Draw a circle at the center
 
   // Draw the mouse position as a small circle
-  fill(255, 0, 0, 150);  
+  fill(255, 0, 0, 150);
   stroke(1);
   strokeWeight(8);
   point(relativeMouseX, relativeMouseY, 5); // Draw a point at the mouse position
@@ -64,16 +69,16 @@ if (mouseIsPressed) {
   line(0, 0, radius*cosValue, 0); // horizontal line
   line(radius*cosValue, -radius*sinValue, radius*cosValue, 0); // vertical line
 
-  
+
   // --- Part 2: Display the text ---
   noStroke();
   fill(0);
   textSize(24);
-  
+
   let angleDegrees = degrees(angle);
   text("Angle: " + angleDegrees.toFixed(2) + "°", 10, 40);
 
-  
+
 }
   // Display the distance from the center
   noStroke();
@@ -88,6 +93,8 @@ if (mouseIsPressed) {
 function windowResized() {
   // Find the canvas container div again
   let canvasContainer = document.getElementById('canvas-container');
+  // If the container doesn't exist yet, do nothing.
+  if (!canvasContainer) return;
 
   // Get its new width and height
   let canvasWidth = canvasContainer.offsetWidth;
@@ -96,3 +103,4 @@ function windowResized() {
   // Resize the canvas to match the container
   resizeCanvas(canvasWidth, canvasHeight);
 }
+

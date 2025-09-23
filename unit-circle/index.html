@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module Template</title>
+    <title>Unit Circle Module</title>
     <style>
         /* --- Basic Reset & Body Styling --- */
         body {
@@ -80,17 +80,18 @@
             display: flex;
             flex-direction: column;
             overflow: hidden; /* Prevent body scroll */
+            background-color: #ffffff;
         }
 
         /* --- Canvas Container --- */
         #canvas-container {
             flex-grow: 1;
             display: flex;
+            min-height: 200px; /* Ensure it has a minimum size */
             justify-content: center;
             align-items: center;
-            background-color: #ffffff;
-            min-height: 200px; /* Ensure it has a minimum size */
         }
+
 
         /* --- Controls Panel --- */
         #controls-panel {
@@ -155,7 +156,7 @@
 
     <main>
         <div id="canvas-container">
-            <!--p style="color: #999;">Interactive Canvas Area</p-->
+            <!-- p5.js canvas will attach here and fill the space -->
         </div>
 
         <div id="controls-panel">
@@ -187,3 +188,4 @@
 <script src="sketch.js"></script>    
 </body>
 </html>
+
